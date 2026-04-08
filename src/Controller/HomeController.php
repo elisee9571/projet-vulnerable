@@ -13,7 +13,7 @@ class HomeController extends Controller
          * @todo
          * - Filtrer le input avec la methode filter_input
          * */
-        $q = isset($_GET['q']) ? $_GET['q'] : '';
+        $q = filter_input(INPUT_GET, 'q', FILTER_VALIDATE_URL);
 
         $productRepository = new ProductRepository();
         $products = $productRepository->findAll();
