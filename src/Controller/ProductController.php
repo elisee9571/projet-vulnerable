@@ -25,23 +25,23 @@ class ProductController extends Controller
              * (eviter de stocker dans le dossier public)
              */
             if (!empty($_FILES['picture']['tmp_name'])) {
-//                $finfo = new \finfo(FILEINFO_MIME_TYPE);
-//                $mimeType = $finfo->file($_FILES['picture']['tmp_name']);
-//
-//                $allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
-//                $extensions = [
-//                    'image/jpeg' => 'jpg',
-//                    'image/png' => 'png',
-//                    'image/webp' => 'webp'
-//                ];
-//
-//                if (!in_array($mimeType, $allowedTypes)) {
-//                    throw new \Exception('File type unhautorized', 401);
-//                }
+                $finfo = new \finfo(FILEINFO_MIME_TYPE);
+                $mimeType = $finfo->file($_FILES['picture']['tmp_name']);
 
-//                $ext = $extensions[$mimeType];
-//                $filename = uniqid('products_', true) . '.' . $ext;
-                $filename = $_FILES['picture']['name'];
+                $allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'];
+                $extensions = [
+                    'image/jpeg' => 'jpg',
+                    'image/png' => 'png',
+                    'image/webp' => 'webp',
+                    'image/svg+xml' => 'svg',
+                ];
+
+                if (!in_array($mimeType, $allowedTypes)) {
+                    throw new \Exception('File type unhautorized', 401);
+                }
+
+                $ext = $extensions[$mimeType];
+                $filename = uniqid('products_', true) . '.' . $ext;
 
                 $destDir = dirname(__DIR__) . '/../public/uploads/products';
                 if (!is_dir($destDir)) mkdir($destDir, 0775, true);
