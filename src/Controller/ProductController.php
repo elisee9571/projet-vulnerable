@@ -45,7 +45,12 @@ class ProductController extends Controller
             $product->setTitle($title)
                 ->setSlug(UtilitiesService::slugify($title))
                 ->setDescription(htmlspecialchars($_POST['description']))
-                ->setPrice(filter_var($_POST['price'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION));
+                ->setPrice(filter_var($_POST['price'], FILTER_VALIDATE_FLOAT, [
+                    'options' => [
+                        'min_range' => 0,
+                    ],
+                    'flags' => FILTER_FLAG_ALLOW_FRACTION
+                ]));
 
             $entityManager = new EntityManager();
             $entityManager->persist($product);

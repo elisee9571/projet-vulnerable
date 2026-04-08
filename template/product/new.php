@@ -14,7 +14,7 @@
 
     <div class="mb-3">
         <label for="price" class="form-label">Price</label>
-        <input id="price" type="number" name="price" class="form-control" placeholder="Saissisez un prix" required>
+        <input id="price" type="number" name="price" minlength="0" class="form-control" placeholder="Saissisez un prix" required>
     </div>
 
     <div class="mb-3">
