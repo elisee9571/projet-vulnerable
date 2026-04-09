@@ -30,5 +30,6 @@ $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 
 <form action="/product/<?= $product->getId() ?>/delete" method="post">
     <!-- Passer un input hidden avec le name csrf_token et la value $_SESSION['csrf_token'] -->
+    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
     <button type="submit" class="btn btn-danger">Delete</button>
 </form>

@@ -101,10 +101,15 @@ class ProductController extends Controller
                 throw new \Exception('Product not found', 404);
             }
 
-            $entityManager = new EntityManager();
-            $entityManager->delete($product);
+            if ($_POST['csrf_token'] === $_SESSION['csrf_token']) {
+                $entityManager = new EntityManager();
+                $entityManager->delete($product);
 
-            $this->redirect('/');
+                $this->redirect('/');
+            } else {
+                $_SESSION['error'] = "Invalid CSRF token";
+                $this->redirect("/product/{$product->getSlug()}/{$product->getId()}");
+            }
         }
     }
 }
